@@ -7,6 +7,7 @@
 #include "eqFs.h"
 #include "eqSet.h"
 #include "ncFunctions.h"
+#include "mocTheme.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     int selectedeq=0;
     vector<eqSet> eqSets;
     string user_dir=getenv("HOME");
+    mTheme moc_theme;
     // COSAS DE NCURSES //
     WINDOW *main_win, *control[10];
     int startx, starty, width, height;
@@ -44,12 +46,22 @@ int main(int argc, char *argv[])
         return 1;
     }
     start_color();
-    init_pair(1, COLOR_YELLOW, COLOR_BLACK); // window_title
-    init_pair(2, COLOR_BLUE, COLOR_BLACK);  // enabled
-    init_pair(3, COLOR_WHITE, COLOR_BLACK); // disabled
-    init_pair(4, COLOR_MAGENTA, COLOR_BLACK); // info
-    init_pair(5, COLOR_CYAN, COLOR_BLACK); // title
-    init_pair(6, COLOR_WHITE, COLOR_BLACK); // lineas y fondo
+    init_pair(1, moc_theme.getColorPair("window_title"), moc_theme.getColorPair("window_title",1)); // window_title
+    init_pair(2, moc_theme.getColorPair("enabled"), moc_theme.getColorPair("enabled",1)); // enabled
+    init_pair(3, moc_theme.getColorPair("disabled"), moc_theme.getColorPair("disabled",1));  // disabled
+    init_pair(4, moc_theme.getColorPair("info"), moc_theme.getColorPair("info",1)); // info
+    init_pair(5, moc_theme.getColorPair("title"), moc_theme.getColorPair("title",1)); // title
+    init_pair(6, moc_theme.getColorPair("frame"), moc_theme.getColorPair("frame",1)); // lineas y fondo
+
+
+    // init_pair(1, COLOR_WHITE, COLOR_BLUE); // window_title
+    // init_pair(2, COLOR_WHITE, COLOR_BLUE); // enabled
+    // init_pair(3, COLOR_WHITE, COLOR_BLUE);  // disabled
+    // init_pair(4, COLOR_WHITE, COLOR_BLUE); // info
+    // init_pair(5, COLOR_WHITE, COLOR_BLUE); // title
+    // init_pair(6, COLOR_WHITE, COLOR_BLUE); // lineas y fondo
+
+
     /*
      * Comprobaciones de MOC
      */
@@ -61,9 +73,9 @@ int main(int argc, char *argv[])
     if(!exists(path(moc_dir))){
         cout<<"No se encontro el directorio de configuracion de moc: \t" << path(moc_dir) <<endl;
         char q;
-        cout << "¿Desea crear el directorio? (S/N)" <<endl;
+        cout << "¿Desea crear el directorio? (Y/N)" <<endl;
         cin >> q;
-        if (q=='S' || q=='s'){
+        if (q=='Y' || q=='y'){
             create_directories(moc_dir);
         }else{
             return 1;
@@ -83,7 +95,7 @@ int main(int argc, char *argv[])
      */
     //init_pair(1, COLOR_WHITE, COLOR_BLUE);
     //attron(COLOR_PAIR(1));
-   printw("Pulse F1 para salir");
+    //printw("Pulse F1 para salir");
     //attroff(COLOR_PAIR(1));
     refresh();
     /* Creamos las ventanas
@@ -100,7 +112,7 @@ int main(int argc, char *argv[])
     col_starty=2;
     col_startx=width*1/10; //la decima parte del disply
     for(int i=0;i<10;i++){
-        control[i] = create_eqbar(col_height, col_width, col_starty , col_startx*i+col_width/2,
+        control[i] = create_eqbar(col_height, col_width, col_starty , col_startx*i+col_startx/2,
                                   band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
      }
 
@@ -127,19 +139,20 @@ int main(int argc, char *argv[])
             break;
             case KEY_UP:
                 test=eqSets[selectedeq].getbandvalue(selected+1);
-                if(test<19.5)  test++;
+                if(test<20)  test+=0.5; else test=20;
                 eqSets[selectedeq].setbandvalue(selected+1,test);
             break;
             case KEY_DOWN:
                 test=eqSets[selectedeq].getbandvalue(selected+1);
-                if(test>-20) test--;
+                if(test>-20) test-=0.5; else test=-20;
                 eqSets[selectedeq].setbandvalue(selected+1,test);
             break;
             case 's':
+            case 'S':
                 eqSets[selectedeq].save();
             break;
             case KEY_RESIZE:
-                //system("echo 'e' | mocp &"); <-- NO borrar esto!!!
+                //system("echo 'e' | mocp &"); <-- TODO: NO borrar esto!!! lo necesitamos para refrescar moc
                 for(int i=0;i<10;i++){
                     destroy_win(control[i]);
 
@@ -156,7 +169,7 @@ int main(int argc, char *argv[])
                 col_startx=width*1/10; //la decima parte del display
                 for(int i=0;i<10;i++){
                   //  destroy_win(control[i]); <-- TODO v. seg.
-                    control[i] = create_eqbar(col_height, col_width, col_starty , col_startx*i+col_width/2,
+                    control[i] = create_eqbar(col_height, col_width, col_starty , col_startx*i+col_startx/2,
                                             band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
                 }
             break;
@@ -170,6 +183,7 @@ int main(int argc, char *argv[])
                 use_default_colors();
             break;
             case 'q':
+            case 'Q':
                 endwin();
                 return 0;
 

@@ -4,8 +4,63 @@
 #include <fstream>
 #include <string>
 #include "eqSet.h"
+
+#define THEMESDIR "/usr/share/moc/themes/"
+#define THEMESDIRLOCAL "/usr/local/share/moc/themes/"
+#define MOCCONFIGFILE ".moc/config"
+
+
 using namespace std;
 using namespace std::filesystem;
+
+bool moc_search_active_theme(path &themefile){
+    string key, eq, value;
+    path configDir=getenv("HOME");
+    configDir=configDir/MOCCONFIGFILE;
+    if(!exists(path(configDir))) return false;
+    fstream configFile(configDir);
+    if (!configFile.is_open()) return false;
+    while(!configFile.eof()){
+        configFile >> key;
+        if(key!="Theme"){
+            getline(configFile,key,'\n');
+            continue;
+        }
+        configFile >> eq >> value;
+        break;
+    }
+    configFile.close();
+    if(eq=="=" && value.size()>0){
+        themefile=value;
+        return true;
+    }
+    return false;
+}
+
+bool moc_load_active_theme(path &theme){
+    string key, eq, value1, value2;
+    path configDir=THEMESDIR;
+    configDir=configDir/theme;
+    if(!exists(path(configDir))) return false;
+    ifstream configFile(configDir);
+    if (!configFile.is_open()) return false;
+    while(!configFile.eof()){
+        configFile >> key;
+        if(key[0]=='#'){
+            getline(configFile,key,'\n');
+            continue;
+        }
+        configFile >> eq >> value1 >> value2 ;
+       getline(configFile,eq,'\n');
+        cout << key << "\t" << value1<< "\t" << value2 <<endl;
+    }
+    configFile.close();
+    // if(eq=="=" && value.size()>0){
+    //     themefile=value;
+    //     return true;
+    // }
+    return false;
+}
 
 bool eq_search_files(vector<eqSet> &files, const string &_path){
     string line;

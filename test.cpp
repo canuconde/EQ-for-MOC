@@ -3,7 +3,10 @@
 #include <fstream>
 #include "eqFs.h"
 #include "eqSet.h"
-
+#include "mocTheme.h"
+#define THEMESDIR "/usr/share/moc/themes/"
+#define THEMESDIRLOCAL "/usr/local/share/moc/themes/"
+#define MOCCONFIGFILE ".moc/config"
 using namespace std;
 using namespace std::filesystem;
 
@@ -45,30 +48,35 @@ int main(){
         }
     }
 
-    while(userinput!='q'){
-        switch(userinput){
-            case    'a':
-                        selectedeq++;
-                        if(selectedeq == eqSets.size()) selectedeq=0;
-                break;
-            case    's':
-                        selectedeq--;
-                        if(selectedeq < 0)  selectedeq=eqSets.size()-1;
-                break;
-            default:
-                break;
-        }
-        cout << eqSets[selectedeq].name << endl;
-        cout << selectedeq << endl;
-        for(int i=0;i<11;i++){
-            cout << eqSets[selectedeq].getbandvalue(i) << "\t";
-            }
-        cout <<endl;
-        cin >> userinput;
-        system("clear");
-    }
+    path theme;
+    moc_search_active_theme(theme);
+    cout << theme.string() << endl;
+    moc_load_active_theme(theme);
+    // while(userinput!='q'){
+    //     switch(userinput){
+    //         case    'a':
+    //                     selectedeq++;
+    //                     if(selectedeq == eqSets.size()) selectedeq=0;
+    //             break;
+    //         case    's':
+    //                     selectedeq--;
+    //                     if(selectedeq < 0)  selectedeq=eqSets.size()-1;
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     cout << eqSets[selectedeq].name << endl;
+    //     cout << selectedeq << endl;
+    //     for(int i=0;i<11;i++){
+    //         cout << eqSets[selectedeq].getbandvalue(i) << "\t";
+    //         }
+    //     cout <<endl;
+    //     cin >> userinput;
+    //     system("clear");
+    // }
 
-
+    mTheme moc_theme;
+    cout << moc_theme.getColorPair("window_title") << "\n" << moc_theme.getColorPair("window_title",1) << endl ;
 
     return 0;
 }
