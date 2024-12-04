@@ -72,22 +72,38 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
         wprintw(local_win,db.data());
         wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
 
+        wmove(local_win,height-3,width*7/10);
+        wattron(local_win, A_BOLD );
+        wprintw(local_win,"Tab: ");
+        wattroff(local_win,  A_BOLD );
+        wattron(local_win, A_ITALIC );
+        wprintw(local_win,string("Switch eq pressets").data());
+        wattroff(local_win, A_ITALIC);
+
+        wmove(local_win,height-2,width*7/10);
+        wattron(local_win, A_BOLD );
+        wprintw(local_win,"S: ");
+        wattroff(local_win,  A_BOLD );
+        wattron(local_win, A_ITALIC );
+        wprintw(local_win,string("Save changes").data());
+        wattroff(local_win, A_ITALIC);
+
     if(local_eqSet.isactive==true){
         wattron(local_win, COLOR_PAIR(2) | A_BOLD );
-        mvwprintw(local_win,height-2,width*6/10,string("[ACTIVE]").data());
+        mvwprintw(local_win,height-2,width*5/10,string("[ACTIVE]").data());
         wattroff(local_win, COLOR_PAIR(2) | A_BOLD );
     }else{
         wattron(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM );
-        mvwprintw(local_win,height-2,width*6/10,string("[UNACTIVE]").data());
+        mvwprintw(local_win,height-2,width*5/10,string("[UNACTIVE]").data());
         wattroff(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM );
     }
     if(local_eqSet.unsaved==true){
         wattron(local_win, COLOR_PAIR(2) | A_BOLD );
-        mvwprintw(local_win,height-3,width*6/10,string("[UNSAVED]").data());
+        mvwprintw(local_win,height-3,width*5/10,string("[UNSAVED]").data());
         wattroff(local_win, COLOR_PAIR(2) | A_BOLD );
     }else{
         wattron(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM);
-        mvwprintw(local_win,height-3,width*6/10,string("[SAVED]").data());
+        mvwprintw(local_win,height-3,width*5/10,string("[SAVED]").data());
         wattroff(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM);
     }
 
