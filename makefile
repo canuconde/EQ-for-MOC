@@ -1,18 +1,16 @@
-# Thanks to Job Vranish (https://spin.atomicobject.com/2016/08/26/makefile-c-projects/)
 TARGET_EXEC := eq4moc
-
 BUILD_DIR := ./build
 SRC_DIRS := ./src
 INCLUDE_DIR  := ./src
+MAN_DIR := ./man
 
 CXX = g++
 # CXXFLAGS = -g -std=c++17 -Wall -W -Werror -pedantic
-CXXFLAGS = -g -std=c++17
+CXXFLAGS = -O2 -std=c++17
 INCLUDE = -Iinclude -I/usr/local/include -I/usr/include $(INCLUDE_DIR)
 LDFLAGS = "-lncurses"
 #LDLIBS = "-lncurses"
 
-# PREFIX is environment variable, but if it is not set, then set default value
 ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
@@ -56,10 +54,9 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 install:
 	install -d $(DESTDIR)$(PREFIX)/bin/
 	install -m 655 $(BUILD_DIR)/$(TARGET_EXEC) $(DESTDIR)$(PREFIX)/bin/
-# 	install -d $(DESTDIR)$(PREFIX)/lib/
-# 	install -m 644 unixlib.a $(DESTDIR)$(PREFIX)/lib/
-# 	install -d $(DESTDIR)$(PREFIX)/include/
-# 	install -m 644 unixlib.h $(DESTDIR)$(PREFIX)/include/
+	install -d $(DESTDIR)$(PREFIX)/share/man/man1/
+	install -m 644 $(MAN_DIR)/eq4moc.1 $(DESTDIR)$(PREFIX)/share/man/man1/
+
 
 
 .PHONY: clean

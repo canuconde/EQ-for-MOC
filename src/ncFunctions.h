@@ -1,3 +1,19 @@
+//                     eq4moc - EQ for MOC
+//     Copyright (C) 2024 Sebastián Bergara <canu.conde@gmail.com>
+//
+// This file is part of eq4moc (EQ 4 MOC).
+//
+// eq4moc (EQ 4 MOC) is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// eq4moc (EQ 4 MOC) is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with eq4moc (EQ 4 MOC).
+// If not, see <https://www.gnu.org/licenses/>.
+
 #pragma once
 
 #include <ncurses.h>
@@ -61,7 +77,7 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
         db+="dB ] ";
 
         wmove(local_win,height-3,width*1/10);
-        wprintw(local_win,"EQ presset: ");
+        wprintw(local_win,"EQ preset: ");
         wattron(local_win, COLOR_PAIR(1) | A_BOLD );
         wprintw(local_win,string("<"+local_eqSet.name+">").data());
         wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
@@ -77,7 +93,7 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
         wprintw(local_win,"Tab: ");
         wattroff(local_win,  A_BOLD );
         wattron(local_win, A_ITALIC );
-        wprintw(local_win,string("Switch eq pressets").data());
+        wprintw(local_win,string("Switch eq presets").data());
         wattroff(local_win, A_ITALIC);
 
         wmove(local_win,height-2,width*7/10);

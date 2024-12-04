@@ -1,3 +1,20 @@
+//                     eq4moc - EQ for MOC
+//     Copyright (C) 2024 Sebastián Bergara <canu.conde@gmail.com>
+//
+// This file is part of eq4moc (EQ 4 MOC).
+//
+// eq4moc (EQ 4 MOC) is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// eq4moc (EQ 4 MOC) is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with eq4moc (EQ 4 MOC).
+// If not, see <https://www.gnu.org/licenses/>.
+
+
 #include <ncurses.h>
 #include <string>
 #include <iostream>
@@ -29,6 +46,18 @@ int main(int argc, char *argv[])
     int selected=0;
     const string band_freq[10]={"60 ","170","310","600","1 K","3 K","6 K","12K","14K","16K"};
     const string ex_band_freq[10]={"60 Hz","170 Hz","310 Hz","600 Hz","1 kHz","3 kHz","6 kHz","12 kHz","14 kHz","16 kHz"};
+
+    if(argc>0) //solo si tenemos argumentos
+	for(int i=1; i < argc ; i++)
+	{
+			if(string(argv[i])=="-h" || string(argv[i])=="--help"){
+				cout << "Todavia no hay nada aqui\n\t o.O" <<endl;
+				return 0;
+			}else{
+				cout << argv[i] << " no se reconoce como argumento valido" <<endl;
+				return 1;
+			}
+	}
     /*
      * Inicializamos las cositas de Ncurses
      * TODO: agregar compatibilidad con temas
@@ -42,7 +71,7 @@ int main(int argc, char *argv[])
     if(has_colors() == FALSE)
     {
         endwin();
-        printf("Tu terminal no soporta color\n");
+        cout << "Your terminal does not support color\n" << endl;
         return 1;
     }
     start_color();
@@ -65,21 +94,24 @@ int main(int argc, char *argv[])
     /*
      * Comprobaciones de MOC
      */
+    if (!setlocale(LC_ALL, ""))
+		cout << "Could not set locale!" << endl;
     if(user_dir==""){
-        cout<<"No se pudo encontrar el directorio HOME del usuario acutal\n¿La variable de entorno no es accesible?"<<endl;
+        cout<<"Could not determine user's home directory!"<<endl;
         return 1;
     }
     moc_dir=path(user_dir)/path(moc_dir);
     if(!exists(path(moc_dir))){
-        cout<<"No se encontro el directorio de configuracion de moc: \t" << path(moc_dir) <<endl;
-        char q;
-        cout << "¿Desea crear el directorio? (Y/N)" <<endl;
-        cin >> q;
-        if (q=='Y' || q=='y'){
-            create_directories(moc_dir);
-        }else{
-            return 1;
-        }
+        create_directories(moc_dir);
+        // cout<<"No se encontro el directorio de configuracion de moc: \t" << path(moc_dir) <<endl;
+        // char q;
+        // cout << "¿Desea crear el directorio? (Y/N)" <<endl;
+        // cin >> q;
+        // if (q=='Y' || q=='y'){
+        //     create_directories(moc_dir);
+        // }else{
+        //     return 1;
+        // }
     }
     eq_search_files(eqSets,moc_dir);
     for(int i=0;i<eqSets.size(); i++){

@@ -1,0 +1,31 @@
+.\" Manpage for eq4moc.
+.\" Contact canu.conde@gmail.com to correct errors or typos.
+.TH man 1 "14 Dec 2024" "0.9" "eq4moc man page"
+.SH NAME
+eq4moc - EQ for MOC
+.SH SYNOPSIS
+eq4moc [OPTIONS]
+.SH DESCRIPTION
+EQ for Moc is a terminal application to c and edit EQSET equalization files used by MoC (Music on Console).
+.SH OPTIONS
+The eq4moc does not take any options for the moment.
+.SH ENVIRONMENT VARIABLES
+.TP
+.B HOME
+Tells eq4moc where your home directory is located and is used for various purposes, including the default location of the MOC directory.
+.LP
+.SH FILES
+.TP
+.B ~/.moc/eqsets/EQ_4_MOC
+Default file to store equalization configuration. It is also the directory where eq4moc will search for other EQSET files.
+.LP
+.TP
+.B ~/.moc/config
+If this file exists, eq4moc will try to load the selected mocp theme from it.
+.LP
+.SH SEE ALSO
+mocp(1)
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Sebastián Bergara Conde (canu.conde@gmail.com)
