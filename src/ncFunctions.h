@@ -38,10 +38,9 @@ WINDOW *create_eqbar(int height, int width, int starty, int startx,const string 
     wattron(local_win,COLOR_PAIR(4) | A_BOLD );
     mvwprintw(local_win,1,1,label.data());
     wattroff(local_win,COLOR_PAIR(4) | A_BOLD );
-    update_control(local_win,value);
     box(local_win, 0, 0);
+    update_control(local_win,value);
 //  mvwhline(local_win,2, 1, 0,3); // Linea en y=2 x=0 de tipo 0 (defecto) y longitud 3
-    wrefresh(local_win);
 return local_win;
 }
 
@@ -58,7 +57,6 @@ WINDOW *create_mainwin(int height, int width, int starty, int startx,eqSet &loca
     wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
     wprintw(local_win,"|");
     update_window(local_win,local_eqSet);
-    wrefresh(local_win);
 return local_win;
 }
 
@@ -171,6 +169,5 @@ void clean_control(WINDOW *local_win){
 }
 
 void destroy_win(WINDOW *local_win){
-    wrefresh(local_win);
-    delwin(local_win);
+        delwin(local_win);
 }

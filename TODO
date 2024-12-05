@@ -1,0 +1,13 @@
+*   Mejorar el código de reescalado. Cada vez que se reescala el terminal recreamos todas las ventanas (esto no es bueno).-
+*   Limpiar todo el código repetido y pasar las cosas de C a C++.-
+*   Implementar el refresco en MOC. Haciendole un echo al stdin provoca que moc se enoje.-
+*   Permitir que el usuario cambie un tema por linea de comando
+*   Agregar la opción de "Guardar como" (buscar dialogs en ncurses)
+
+/------------------------------------------------------------/
+
+* Improve rescaling code. Every time the terminal is rescaled we recreate all windows (this is not good).-
+* Clean up all the duplicate code and move things from C to C++.-
+* Implement refresh in MOC. Echoing stdin makes moc angry.-
+* Allow user to change theme via command line
+* ​​Add "Save As" option (search dialogs in ncurses)

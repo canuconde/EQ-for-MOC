@@ -15,8 +15,7 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #define PACKAGE_NAME "eq4moc - EQ for MOC"
-#define PACKAGE_VERSION 0.9
-
+#define PACKAGE_VERSION "0.9.1"
 #include <ncurses.h>
 #include <string>
 #include <iostream>
@@ -136,7 +135,7 @@ int main(int argc, char *argv[])
     col_starty=2;
     col_startx=width*1/10; //la decima parte del disply
     for(int i=0;i<10;i++){
-        control[i] = create_eqbar(col_height, col_width, col_starty , col_startx*i+col_startx/2,
+        control[i] = create_eqbar(col_height, col_width, col_starty , col_startx*i+col_startx/3,
                                   band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
      }
 
@@ -175,12 +174,13 @@ int main(int argc, char *argv[])
             case 'S':
                 eqSets[selectedeq].save();
             break;
-            case KEY_RESIZE:
+            case 'e':
+            case 'E':
                 //system("echo 'e' | mocp &"); <-- TODO: NO borrar esto!!! lo necesitamos para refrescar moc
-                for(int i=0;i<10;i++){
-                    destroy_win(control[i]);
-
-                }
+            break;
+            case KEY_RESIZE:
+                // Estoy seguro que hay una mejor manera de reescalar todo sin tener que destruir y volver a crear las ventanas
+                // TODO Investigar esto
                 destroy_win(main_win);
                 height = LINES;
                 width = COLS;
@@ -190,12 +190,13 @@ int main(int argc, char *argv[])
                 col_height=height-5;
                 col_width=5;
                 col_starty=2;
-                col_startx=width*1/10; //la decima parte del display
+                col_startx=width*1/10;
                 for(int i=0;i<10;i++){
-                  //  destroy_win(control[i]); <-- TODO v. seg.
-                    control[i] = create_eqbar(col_height, col_width, col_starty , col_startx*i+col_startx/2,
-                                            band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
+                    destroy_win(control[i]);
+                     control[i] = create_eqbar(col_height, col_width, col_starty , col_startx*i+col_startx/3,
+                                           band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
                 }
+
             break;
             case '\t':
                 selectedeq++;
@@ -219,6 +220,7 @@ int main(int argc, char *argv[])
                 wattroff(control[selected], A_BLINK | A_REVERSE  );
                 clean_window(main_win);
                 update_window(main_win,eqSets[selectedeq],ex_band_freq[selected],eqSets[selectedeq].getbandvalue(selected+1));
+
     }
     endwin();
     return 0;

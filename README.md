@@ -12,7 +12,7 @@ EQ for Moc is a terminal application to c and edit EQSET equalization files used
 
  on debian like distro :
 
-     apt install mocp
+     apt install moc
 
 * ncurses6 (v 6.4.20221231)
 
