@@ -19,7 +19,6 @@
 #include <vector>
 #include <filesystem>
 
-
 #define THEMESDIR "/usr/share/moc/themes/"
 #define THEMESDIRLOCAL "/usr/local/share/moc/themes/"
 #define MOCCONFIGFILE ".moc/config"
@@ -27,28 +26,21 @@
 using namespace std;
 using namespace std::filesystem;
 
-
 class mTheme{
 private:
     path Theme;
     bool loadActiveTheme();
     bool searchActiveTheme();
-                        //  Tema por defecto
-                        // De NCURSES.h
-                        // #define COLOR_BLACK	0
-                        // #define COLOR_RED	1
-                        // #define COLOR_GREEN	2
-                        // #define COLOR_YELLOW	3
-                        // #define COLOR_BLUE	4
-                        // #define COLOR_MAGENTA	5
-                        // #define COLOR_CYAN	6
-                        // #define COLOR_WHITE	7
-    int colorPair[6][2]={   7,  4,
-                            7,  4,
-                            7,  4,
-                            7,  4,
-                            7,  4,
-                            7,  4   };
+                                        //   Tema por defecto
+    int colorPair[6][2]={   7,  4,      //  --> NCURSES.h <--
+                            7,  4,      // #define COLOR_BLACK	0
+                            7,  4,      // #define COLOR_RED	1
+                            7,  4,      // #define COLOR_GREEN	2
+                            7,  4,      // #define COLOR_YELLOW	3
+                            7,  4       // #define COLOR_BLUE	4
+                                };      // #define COLOR_MAGENTA	5
+                                        // #define COLOR_CYAN	6
+                                        // #define COLOR_WHITE	7
     int colorToInt(const string &colorValue);
 public:
     mTheme();
@@ -56,15 +48,11 @@ public:
 
 };
 
-
 mTheme::mTheme(){
     if(searchActiveTheme()){
         loadActiveTheme();
     }
 }
-        // # FOREGOUND_COLOR and BACKGROUND_COLOR can have one of the following values:
-        // # black, red, green, yellow, blue, magenta, cyan, white, default (can be
-        // # transparent), grey (not standard, but works)
 
 int mTheme::colorToInt(const string &colorValue){
     if(colorValue=="black"){
@@ -106,8 +94,6 @@ bool mTheme::loadActiveTheme(){
         }
         configFile >> eq >> value1 >> value2 ;
         getline(configFile,eq,'\n');
-        cout << key << "\t" << value1<< "\t" << value2 <<endl;
-
         if(key=="window_title"){
                 colorPair[0][0]=colorToInt(value1);
                 colorPair[0][1]=colorToInt(value2);
@@ -127,8 +113,6 @@ bool mTheme::loadActiveTheme(){
                 colorPair[5][0]=colorToInt(value1);
                 colorPair[5][1]=colorToInt(value2);
         }
-
-
     }
     configFile.close();
     return false;
@@ -157,6 +141,7 @@ bool mTheme::searchActiveTheme(){
     }
     return false;
 }
+
 int mTheme::getColorPair(const string &element,int colorIndex=0){
     if(element=="window_title") return colorPair[0][colorIndex];
     if(element=="enabled") return colorPair[1][colorIndex];

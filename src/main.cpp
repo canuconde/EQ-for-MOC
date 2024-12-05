@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License along with eq4moc (EQ 4 MOC).
 // If not, see <https://www.gnu.org/licenses/>.
 
+#define APP_NAME "eq4moc - EQ for MOC"
+#define APP_VERSION 0.9
 
 #include <ncurses.h>
 #include <string>
@@ -27,7 +29,6 @@
 #include "mocTheme.h"
 
 using namespace std;
-
 
 int main(int argc, char *argv[])
 {
@@ -50,11 +51,14 @@ int main(int argc, char *argv[])
     if(argc>0) //solo si tenemos argumentos
 	for(int i=1; i < argc ; i++)
 	{
-			if(string(argv[i])=="-h" || string(argv[i])=="--help"){
-				cout << "Todavia no hay nada aqui\n\t o.O" <<endl;
+			if(string(argv[i])=="-v" || string(argv[i])=="--version"){
+				cout << "          This is : " << APP_NAME << "\n"
+                     << "          Version : " << APP_VERSION << "\n"
+                     << "        Copyright : (C) 2024 Sebastián Bergara\n"
+                     << "          License : GNU General Public License, version 3 or later\n"
+                << endl;
 				return 0;
 			}else{
-				cout << argv[i] << " no se reconoce como argumento valido" <<endl;
 				return 1;
 			}
 	}
@@ -81,16 +85,6 @@ int main(int argc, char *argv[])
     init_pair(4, moc_theme.getColorPair("info"), moc_theme.getColorPair("info",1)); // info
     init_pair(5, moc_theme.getColorPair("title"), moc_theme.getColorPair("title",1)); // title
     init_pair(6, moc_theme.getColorPair("frame"), moc_theme.getColorPair("frame",1)); // lineas y fondo
-
-
-    // init_pair(1, COLOR_WHITE, COLOR_BLUE); // window_title
-    // init_pair(2, COLOR_WHITE, COLOR_BLUE); // enabled
-    // init_pair(3, COLOR_WHITE, COLOR_BLUE);  // disabled
-    // init_pair(4, COLOR_WHITE, COLOR_BLUE); // info
-    // init_pair(5, COLOR_WHITE, COLOR_BLUE); // title
-    // init_pair(6, COLOR_WHITE, COLOR_BLUE); // lineas y fondo
-
-
     /*
      * Comprobaciones de MOC
      */
@@ -125,10 +119,7 @@ int main(int argc, char *argv[])
      * tenemos que mostrar un mensaje cuando el terminal no tiene
      * espacio suficiente para mostrar las ventas de ncurses
      */
-    //init_pair(1, COLOR_WHITE, COLOR_BLUE);
-    //attron(COLOR_PAIR(1));
     //printw("Pulse F1 para salir");
-    //attroff(COLOR_PAIR(1));
     refresh();
     /* Creamos las ventanas
      * maiwin es la ventana principal
@@ -231,4 +222,3 @@ int main(int argc, char *argv[])
     endwin();
     return 0;
 }
-

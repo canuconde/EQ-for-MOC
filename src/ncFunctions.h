@@ -18,6 +18,7 @@
 
 #include <ncurses.h>
 #include <string>
+#include <sstream>
 #include "eqSet.h"
 
 using namespace std;
@@ -39,7 +40,7 @@ WINDOW *create_eqbar(int height, int width, int starty, int startx,const string 
     wattroff(local_win,COLOR_PAIR(4) | A_BOLD );
     update_control(local_win,value);
     box(local_win, 0, 0);
-  //  mvwhline(local_win,2, 1, 0,3); // Linea en y=2 x=0 de tipo 0 (defecto) y longitud 3
+//  mvwhline(local_win,2, 1, 0,3); // Linea en y=2 x=0 de tipo 0 (defecto) y longitud 3
     wrefresh(local_win);
 return local_win;
 }
@@ -47,7 +48,7 @@ return local_win;
 WINDOW *create_mainwin(int height, int width, int starty, int startx,eqSet &local_eqSet){
     WINDOW *local_win;
     local_win = newwin(height, width, starty, startx);
-     wbkgd(local_win, COLOR_PAIR(6));
+    wbkgd(local_win, COLOR_PAIR(6));
     box(local_win, 0, 0);
     string title = string("EQ for MOC").data();
     wmove(local_win,0,width/2-(title.size()+2)/2);
@@ -56,53 +57,56 @@ WINDOW *create_mainwin(int height, int width, int starty, int startx,eqSet &loca
     wprintw(local_win,title.data());
     wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
     wprintw(local_win,"|");
-    /*  NO BORRAR ESTO
-     * wattrset(local_win,COLOR_PAIR(1)); //Pinta todo menos el espacio vacio
-    for(int i=0;i<height-2;i++){ // Pintamos el espacio vacio
-        mvwchgat(local_win,i+1,1,width-2, A_NORMAL,1,NULL);
-    }
-    */
     update_window(local_win,local_eqSet);
     wrefresh(local_win);
 return local_win;
 }
+
 void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float value){
     int width, height;
     getmaxyx(local_win,height,width);
     string db;
+    stringstream strValue;
+    strValue << fixed << setprecision(2) << value;
 
-        db=" [ ";
-        db+=to_string(value);
-        db=db.substr(0, db.find(".")+3);
-        db+="dB ] ";
+    db=" [ ";
+    db+=strValue.str();
+    db+=" dB ] ";
 
-        wmove(local_win,height-3,width*1/10);
-        wprintw(local_win,"EQ preset: ");
-        wattron(local_win, COLOR_PAIR(1) | A_BOLD );
-        wprintw(local_win,string("<"+local_eqSet.name+">").data());
-        wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
+    wmove(local_win,height-3,width*1/10);
+    wprintw(local_win,"EQ preset: ");
+    wattron(local_win, COLOR_PAIR(1) | A_BOLD );
+    wprintw(local_win,string("<"+local_eqSet.name+">").data());
+    wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
 
-        wmove(local_win,height-2,width*1/10);
-        wprintw(local_win,exband.data());
-        wattron(local_win, COLOR_PAIR(1) | A_BOLD );
-        wprintw(local_win,db.data());
-        wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
+    wmove(local_win,height-2,width*1/10);
+    wprintw(local_win,exband.data());
+    wattron(local_win, COLOR_PAIR(1) | A_BOLD );
+    wprintw(local_win,db.data());
+    wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
 
-        wmove(local_win,height-3,width*7/10);
-        wattron(local_win, A_BOLD );
-        wprintw(local_win,"Tab: ");
-        wattroff(local_win,  A_BOLD );
-        wattron(local_win, A_ITALIC );
-        wprintw(local_win,string("Switch eq presets").data());
-        wattroff(local_win, A_ITALIC);
+    wmove(local_win,height-3,width*7/10);
+    wattron(local_win, A_BOLD );
+    wprintw(local_win,"Tab: ");
+    wattroff(local_win,  A_BOLD );
+    wattron(local_win, A_ITALIC );
+    wprintw(local_win,string("Switch EQ").data());
+    wattroff(local_win, A_ITALIC);
 
-        wmove(local_win,height-2,width*7/10);
-        wattron(local_win, A_BOLD );
-        wprintw(local_win,"S: ");
-        wattroff(local_win,  A_BOLD );
-        wattron(local_win, A_ITALIC );
-        wprintw(local_win,string("Save changes").data());
-        wattroff(local_win, A_ITALIC);
+    wmove(local_win,height-2,width*7/10);
+    wattron(local_win, A_BOLD );
+    wprintw(local_win,"S: ");
+    wattroff(local_win,  A_BOLD );
+    wattron(local_win, A_ITALIC );
+    wprintw(local_win,string("Save").data());
+    wattroff(local_win, A_ITALIC);
+
+    wattron(local_win, A_BOLD );
+    wprintw(local_win," Q: ");
+    wattroff(local_win,  A_BOLD );
+    wattron(local_win, A_ITALIC );
+    wprintw(local_win,string("Exit").data());
+    wattroff(local_win, A_ITALIC);
 
     if(local_eqSet.isactive==true){
         wattron(local_win, COLOR_PAIR(2) | A_BOLD );
@@ -133,6 +137,7 @@ void clean_window(WINDOW *local_win){
           mvwprintw(local_win,height-3,j," ");
         }
 }
+
 void update_control(WINDOW *local_win, float value){
     value=value+20; // Value es un nº entre -20 y 20
     int percent;
@@ -151,9 +156,10 @@ void update_control(WINDOW *local_win, float value){
     wattron(local_win,COLOR_PAIR(4) | A_BOLD);
     mvwprintw(local_win,height-2,1,"%d%%",percent);
     wattroff(local_win,COLOR_PAIR(4) | A_BOLD);
-   // mvwhline(local_win,2, 1, 0,3);
+//  mvwhline(local_win,2, 1, 0,3);
     wrefresh(local_win);
 }
+
 void clean_control(WINDOW *local_win){
     int width, height;
     getmaxyx(local_win,height,width);
@@ -162,9 +168,9 @@ void clean_control(WINDOW *local_win){
           mvwprintw(local_win,height-i-2,2," ");
           mvwprintw(local_win,height-i-2,3," ");
       }
-    //wrefresh(local_win);
 }
+
 void destroy_win(WINDOW *local_win){
-  wrefresh(local_win);
-  delwin(local_win);
+    wrefresh(local_win);
+    delwin(local_win);
 }
