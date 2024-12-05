@@ -16,8 +16,10 @@
 #pragma once
 #include <filesystem>
 #include <fstream>
+
 using namespace std;
 using namespace std::filesystem;
+
 class eqSet{
 private:
     struct band_type{
@@ -49,25 +51,10 @@ public:
     bool save();
     bool save_as(const string &new_filename);
 };
-/*
-* #Converted from  (WinAmp) Classical
-*    EQSET
-*    0	0.00
-*    60	1.46	-0.00
-*    170	1.43	-0.00
-*    310	1.42	-0.00
-*    600	1.42	-0.00
-*    1000	1.42	-0.00
-*    3000	1.44	-0.00
-*    6000	1.50	-7.20
-*    12000	1.76	-7.20
-*    14000	1.90	-7.20
-*    16000	2.08	-9.60
-*/
+
 eqSet::eqSet(const string &file_path){
     moc_dir=path(file_path).remove_filename();
     name=path(file_path).filename();
-
 }
 
 bool eqSet::save(){
@@ -84,9 +71,6 @@ bool eqSet::save(){
     }
     eqset_file.close();
     unsaved=false;
-    if(isactive){
-
-    }
     return true;
 }
 
