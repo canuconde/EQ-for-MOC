@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License along with eq4moc (EQ 4 MOC).
 // If not, see <https://www.gnu.org/licenses/>.
 
-#define APP_NAME "eq4moc - EQ for MOC"
-#define APP_VERSION 0.9
+#define PACKAGE_NAME "eq4moc - EQ for MOC"
+#define PACKAGE_VERSION 0.9
 
 #include <ncurses.h>
 #include <string>
@@ -52,8 +52,9 @@ int main(int argc, char *argv[])
 	for(int i=1; i < argc ; i++)
 	{
 			if(string(argv[i])=="-v" || string(argv[i])=="--version"){
-				cout << "          This is : " << APP_NAME << "\n"
-                     << "          Version : " << APP_VERSION << "\n"
+				cout << "\n"
+                     << "          This is : " << PACKAGE_NAME << "\n"
+                     << "          Version : " << PACKAGE_VERSION << "\n"
                      << "        Copyright : (C) 2024 Sebastián Bergara\n"
                      << "          License : GNU General Public License, version 3 or later\n"
                 << endl;
