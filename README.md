@@ -40,5 +40,18 @@ Also you will need the ncurses development libraries.
 
 -----
 
+## Binaries
+
+If you are using a Debian-like distro, you can try using these precompiled binaries
+
+(both were generated with checkinstall):
+
+
+https://github.com/canuconde/EQ-for-MOC/releases/download/v0.9.1/eq4moc_0.9.1-1_amd64.deb
+
+-----
+
+
+
 
 ![Screenshot_20241205_014534](https://github.com/user-attachments/assets/5a6c3d18-4c08-4520-b281-ed44bff7ee8b)
