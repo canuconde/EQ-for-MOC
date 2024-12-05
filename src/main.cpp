@@ -25,7 +25,7 @@
 #include "eqFs.h"
 #include "eqSet.h"
 #include "ncFunctions.h"
-#include "mocTheme.h"
+#include "mTheme.h"
 
 using namespace std;
 

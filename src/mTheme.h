@@ -21,6 +21,7 @@
 
 #define THEMESDIR "/usr/share/moc/themes/"
 #define THEMESDIRLOCAL "/usr/local/share/moc/themes/"
+#define THEMESDIRUSER "/.moc/themes/"
 #define MOCCONFIGFILE ".moc/config"
 
 using namespace std;
@@ -81,9 +82,15 @@ int mTheme::colorToInt(const string &colorValue){
 
 bool mTheme::loadActiveTheme(){
     string key, eq, value1, value2;
-    path configDir=THEMESDIR;
+    path configDir=getenv("HOME");
+    if(exists(path(THEMESDIR/Theme))) {
+                configDir=THEMESDIR;
+    }else if(exists(path(THEMESDIRUSER/Theme))) {
+                configDir=configDir/THEMESDIRUSER;
+    }else{
+        return false;
+    }
     configDir=configDir/Theme;
-    if(!exists(path(configDir))) return false;
     ifstream configFile(configDir);
     if (!configFile.is_open()) return false;
     while(!configFile.eof()){
