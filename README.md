@@ -2,14 +2,13 @@
 
 EQ for Moc is a terminal application to c and edit EQSET equalization files used by MoC (Music on Console).
 
-![Screenshot_20241204_071308](https://github.com/user-attachments/assets/632bccee-c41b-469e-9b9f-e2132816a624)
+![Screenshot_20241205_014534](https://github.com/user-attachments/assets/7da86642-fa2e-44b9-9d71-04a2e831d9d8)
 
-
- -----
+ -----
 
 ## Requirements
 
- * moc (v 2.6)
+* moc (v 2.6)
 
  on debian like distro :
 
@@ -39,4 +38,7 @@ Also you will need the ncurses development libraries.
 
     sudo make install
 
- -----
+-----
+
+
+![Screenshot_20241205_014534](https://github.com/user-attachments/assets/5a6c3d18-4c08-4520-b281-ed44bff7ee8b)
