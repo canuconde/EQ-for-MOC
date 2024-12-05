@@ -176,11 +176,33 @@ int main(int argc, char *argv[])
             break;
             case 'e':
             case 'E':
-                //system("echo 'e' | mocp &"); <-- TODO: NO borrar esto!!! lo necesitamos para refrescar moc
+                    system("echo 'eq' | mocp ; clear"); // <-- TODO: NO borrar esto!!! lo necesitamos para refrescar moc
+                    cbreak();
+                    noecho();
+                    curs_set(0);
+                    keypad(stdscr, TRUE);
+                    werase(stdscr);
+                wrefresh(stdscr);
+                destroy_win(main_win);
+                height = LINES;
+                width = COLS;
+                starty = (LINES - height) / 2;
+                startx = (COLS - width) / 2;
+                main_win = create_mainwin(height, width, starty, startx,eqSets[selectedeq]);
+                col_height=height-5;
+                col_width=5;
+                col_starty=2;
+                col_startx=width*1/10;
+                for(int i=0;i<10;i++){
+                    destroy_win(control[i]);
+                     control[i] = create_eqbar(col_height, col_width, col_starty , col_startx*i+col_startx/3,
+                                           band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
+                }
             break;
             case KEY_RESIZE:
-                // Estoy seguro que hay una mejor manera de reescalar todo sin tener que destruir y volver a crear las ventanas
-                // TODO Investigar esto
+                // TODO Usar wresize() y mvwin()
+                werase(stdscr);
+                wrefresh(stdscr);
                 destroy_win(main_win);
                 height = LINES;
                 width = COLS;
@@ -199,6 +221,7 @@ int main(int argc, char *argv[])
 
             break;
             case '\t':
+            case 'k':
                 selectedeq++;
                 if(selectedeq == eqSets.size()) selectedeq=0;
                 for(int i=0;i<10;i++){

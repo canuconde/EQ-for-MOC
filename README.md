@@ -1,6 +1,6 @@
 # EQ-for-MOC
 
-EQ for Moc is a terminal application to c and edit EQSET equalization files used by MoC (Music on Console).
+EQ for Moc is a terminal application to visualize and edit EQSET equalization files used by MoC (Music on Console).
 
 ![Screenshot_20241205_014534](https://github.com/user-attachments/assets/7da86642-fa2e-44b9-9d71-04a2e831d9d8)
 
