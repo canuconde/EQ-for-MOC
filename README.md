@@ -49,6 +49,9 @@ If you are using a Debian-like distro, you can try using these precompiled binar
 
 https://github.com/canuconde/EQ-for-MOC/releases/download/v0.9.1/eq4moc_0.9.1-1_amd64.deb
 
+https://github.com/canuconde/EQ-for-MOC/releases/download/v0.9.1/eq4moc_0.9.1-1_i386.deb
+
+
 -----
 
 
