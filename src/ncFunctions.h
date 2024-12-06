@@ -152,6 +152,7 @@ void update_control(WINDOW *local_win, float value){
     value=value+20; // Value es un nº entre -20 y 20
     int percent;
     int width, height;
+    string str;
     getmaxyx(local_win,height,width);
     percent = static_cast<int>(value*100/40);
 
@@ -162,10 +163,18 @@ void update_control(WINDOW *local_win, float value){
           mvwaddch(local_win,height-i-3,3,ACS_CKBOARD);
       }
     wattroff(local_win,COLOR_PAIR(5) | A_BOLD);
-    if(percent==100) percent=99;
-    //percent-=50;
+    if(percent>=100) percent=99;
+    if(percent<=0) percent=1;
+    percent-=50;
+    percent=percent*2;
+    if(percent < 0){
+        str=to_string(percent);
+    }else{
+        str="+"+to_string(percent);
+    }
+    if(str.size()<3) str+="%%";
     wattron(local_win,COLOR_PAIR(4) | A_BOLD);
-    mvwprintw(local_win,height-2,1,"%d%%",abs(percent));
+    mvwprintw(local_win,height-2,1,str.data());
     wattroff(local_win,COLOR_PAIR(4) | A_BOLD );
     //mvwhline(local_win,2, 1, 0,3);
     wrefresh(local_win);

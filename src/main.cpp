@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
     main_win = create_mainwin(LINES, COLS, 0, 0,eqSets[selectedeq]);
 
     for(int i=0;i<10;i++){
-        control[i] = create_eqbar(LINES-5, 5, 2, COLS*1/10*i+COLS*1/20,
+        control[i] = create_eqbar(LINES-5, 5, 2, COLS*1/10*i+COLS*1/25,
                                   band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
      }
 
@@ -164,7 +164,7 @@ int main(int argc, char *argv[])
                     main_win = create_mainwin(LINES, COLS, 0, 0,eqSets[selectedeq]);
                     for(int i=0;i<10;i++){
                     destroy_win(control[i]);
-                        control[i] = create_eqbar(LINES-5, 5, 2, COLS*1/10*i+COLS*1/20,
+                        control[i] = create_eqbar(LINES-5, 5, 2, COLS*1/10*i+COLS*1/25,
                                            band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
                     }
             break;
@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
                 main_win = create_mainwin(LINES, COLS, 0, 0,eqSets[selectedeq]);
                 for(int i=0;i<10;i++){
                     destroy_win(control[i]);
-                     control[i] = create_eqbar(LINES-5, 5, 2, COLS*1/10*i+COLS*1/20,
+                     control[i] = create_eqbar(LINES-5, 5, 2, COLS*1/10*i+COLS*1/25,
                                            band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
                 }
 

@@ -3,6 +3,8 @@
 -   Implementar el refresco en MOC. Haciendole un echo al stdin provoca que moc se enoje.-
 +   Permitir que el usuario cambie un tema por linea de comando
 -   Agregar la opción de "Guardar como" (buscar dialogs en ncurses)
+-   Permitir al usuario cargar un EQSET por linea de comandos.
+-   Mejorar el escalado de los controles en ncuses.
 
 /------------------------------------------------------------/
 
@@ -11,3 +13,5 @@
 - Implement refresh in MOC. Echoing stdin makes moc angry.-
 + Allow user to change theme via command line
 - ​​Add "Save As" option (search dialogs in ncurses)
+- Allow uset to load a EQSET vie command line
+- Improve ncurses scaling
