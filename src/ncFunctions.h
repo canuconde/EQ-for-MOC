@@ -85,43 +85,55 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
 
     wmove(local_win,height-3,width*7/10);
     wattron(local_win, A_BOLD );
-    wprintw(local_win,"Tab: ");
+    wprintw(local_win,"K: ");
     wattroff(local_win,  A_BOLD );
     wattron(local_win, A_ITALIC );
-    wprintw(local_win,string("Switch EQ").data());
+    wprintw(local_win,"Change EQSET");
     wattroff(local_win, A_ITALIC);
 
     wmove(local_win,height-2,width*7/10);
+
     wattron(local_win, A_BOLD );
-    wprintw(local_win,"S: ");
+    wprintw(local_win,"Q: ");
     wattroff(local_win,  A_BOLD );
     wattron(local_win, A_ITALIC );
-    wprintw(local_win,string("Save").data());
+    wprintw(local_win,"Exit");
     wattroff(local_win, A_ITALIC);
 
     wattron(local_win, A_BOLD );
-    wprintw(local_win," Q: ");
+    wprintw(local_win," S: ");
     wattroff(local_win,  A_BOLD );
     wattron(local_win, A_ITALIC );
-    wprintw(local_win,string("Exit").data());
+    wprintw(local_win,"Save");
     wattroff(local_win, A_ITALIC);
+
+    // wattron(local_win, A_BOLD );
+    // wprintw(local_win," E: ");
+    // wattroff(local_win,  A_BOLD );
+    // wattron(local_win, A_ITALIC );
+    // wprintw(local_win,"Refresh");
+    // wattroff(local_win, A_ITALIC);
 
     if(local_eqSet.isactive==true){
+        string button="[ACTIVE]";
         wattron(local_win, COLOR_PAIR(2) | A_BOLD );
-        mvwprintw(local_win,height-2,width*5/10,string("[ACTIVE]").data());
+        mvwprintw(local_win,height-2,COLS/2-button.size(),button.data());
         wattroff(local_win, COLOR_PAIR(2) | A_BOLD );
     }else{
+        string button="[UNACTIVE]";
         wattron(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM );
-        mvwprintw(local_win,height-2,width*5/10,string("[UNACTIVE]").data());
+        mvwprintw(local_win,height-2,COLS/2-button.size(),button.data());
         wattroff(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM );
     }
     if(local_eqSet.unsaved==true){
+        string button="[UNSAVED]";
         wattron(local_win, COLOR_PAIR(2) | A_BOLD );
-        mvwprintw(local_win,height-3,width*5/10,string("[UNSAVED]").data());
+        mvwprintw(local_win,height-3,COLS/2-button.size(),button.data());
         wattroff(local_win, COLOR_PAIR(2) | A_BOLD );
     }else{
+        string button="[SAVED]";
         wattron(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM);
-        mvwprintw(local_win,height-3,width*5/10,string("[SAVED]").data());
+        mvwprintw(local_win,height-3,COLS/2-button.size(),button.data());
         wattroff(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM);
     }
 
@@ -151,10 +163,11 @@ void update_control(WINDOW *local_win, float value){
       }
     wattroff(local_win,COLOR_PAIR(5) | A_BOLD);
     if(percent==100) percent=99;
+    //percent-=50;
     wattron(local_win,COLOR_PAIR(4) | A_BOLD);
-    mvwprintw(local_win,height-2,1,"%d%%",percent);
-    wattroff(local_win,COLOR_PAIR(4) | A_BOLD);
-//  mvwhline(local_win,2, 1, 0,3);
+    mvwprintw(local_win,height-2,1,"%d%%",abs(percent));
+    wattroff(local_win,COLOR_PAIR(4) | A_BOLD );
+    //mvwhline(local_win,2, 1, 0,3);
     wrefresh(local_win);
 }
 
