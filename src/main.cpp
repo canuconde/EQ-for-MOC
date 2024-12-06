@@ -15,7 +15,7 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #define PACKAGE_NAME "eq4moc - EQ for MOC"
-#define PACKAGE_VERSION "0.9.1"
+#define PACKAGE_VERSION "1.0"
 #include <ncurses.h>
 #include <string>
 #include <iostream>
@@ -55,10 +55,10 @@ int main(int argc, char *argv[])
                      << "          License : GNU General Public License, version 3 or later\n"
                 << endl;
 				return 0;
-			}else if(string(argv[i])=="-t" || string(argv[i])=="-T"){
-
+			}else if(string(argv[i])=="-t" || string(argv[i])=="-T" || string(argv[i])=="--theme"){
+                if(!argv[i+1]) return 1;
                 if(!moc_theme.chgTheme(argv[i+1])){
-                        cout << "\t Theme file not fund." <<endl;
+                        cout << "\t Theme file not found." <<endl;
                         return 1;
                 }
 

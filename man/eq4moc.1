@@ -1,6 +1,6 @@
 .\" Manpage for eq4moc.
 .\" Contact canu.conde@gmail.com to correct errors or typos.
-.TH man 1 "14 Dec 2024" "0.9" "eq4moc man page"
+.TH man 1 "14 Dec 2024" "1.0" "eq4moc man page"
 .SH NAME
 eq4moc - EQ for MOC
 .SH SYNOPSIS
@@ -8,7 +8,14 @@ eq4moc [OPTIONS]
 .SH DESCRIPTION
 EQ for Moc is a terminal application to visualize and edit EQSET equalization files used by MoC (Music on Console).
 .SH OPTIONS
-The eq4moc does not take any options for the moment.
+.TP
+\fB\-T\fP \fITHEME\fP, \fB\-\-theme\fP \fITHEME\fP
+Use a theme file. The file will be searched in \fB/usr/share/moc/themes/\fP and in \fB~/.moc/themes/\fP.
+.LP
+.TP
+\fB\-v\fP, \fB\-\-version\fP
+Print the program version and exit.
+.LP
 .SH ENVIRONMENT VARIABLES
 .TP
 .B HOME
