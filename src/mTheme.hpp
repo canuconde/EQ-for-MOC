@@ -37,6 +37,7 @@ private:
     int colorToInt(const string &colorValue);
 public:
     mTheme();
+    bool chgTheme(const string &_theme);
     int getColorPair(const string &element,int colorIndex=0);
 
 };

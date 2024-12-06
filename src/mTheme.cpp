@@ -35,6 +35,13 @@ mTheme::mTheme(){
     }
 }
 
+bool mTheme::chgTheme(const string &_theme){
+    Theme=_theme;
+    if(!loadActiveTheme()) return false;
+     return true;
+
+}
+
 int mTheme::colorToInt(const string &colorValue){
     if(colorValue=="black"){
         return 0;
@@ -102,7 +109,7 @@ bool mTheme::loadActiveTheme(){
         }
     }
     configFile.close();
-    return false;
+    return true;
 }
 
 bool mTheme::searchActiveTheme(){

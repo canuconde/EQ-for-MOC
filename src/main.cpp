@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
     string user_dir=getenv("HOME");
     mTheme moc_theme;
 
+
+
     WINDOW *main_win, *control[10], *help;
     int ch;
     const string band_freq[10]={"60 ","170","310","600","1 K","3 K","6 K","12K","14K","16K"};
@@ -53,9 +55,14 @@ int main(int argc, char *argv[])
                      << "          License : GNU General Public License, version 3 or later\n"
                 << endl;
 				return 0;
-			}else{
-				return 1;
-			}
+			}else if(string(argv[i])=="-t"){
+
+                if(!moc_theme.chgTheme(argv[i+1])){
+                        cout << "\t Theme file not fund." <<endl;
+                        return 1;
+                }
+
+            }
 	}
 	if (!setlocale(LC_ALL, ""))
 		cout << "Could not set locale!" << endl;
