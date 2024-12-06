@@ -14,10 +14,12 @@
 // You should have received a copy of the GNU General Public License along with eq4moc (EQ 4 MOC).
 // If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
 #include <string>
 #include <vector>
 #include <filesystem>
+#include <fstream>
+
+#include "mTheme.hpp"
 
 #define THEMESDIR "/usr/share/moc/themes/"
 #define THEMESDIRLOCAL "/usr/local/share/moc/themes/"
@@ -26,28 +28,6 @@
 
 using namespace std;
 using namespace std::filesystem;
-
-class mTheme{
-private:
-    path Theme;
-    bool loadActiveTheme();
-    bool searchActiveTheme();
-                                        //   Tema por defecto
-    int colorPair[6][2]={   7,  4,      //  --> NCURSES.h <--
-                            7,  4,      // #define COLOR_BLACK	0
-                            7,  4,      // #define COLOR_RED	1
-                            7,  4,      // #define COLOR_GREEN	2
-                            7,  4,      // #define COLOR_YELLOW	3
-                            7,  4       // #define COLOR_BLUE	4
-                                };      // #define COLOR_MAGENTA	5
-                                        // #define COLOR_CYAN	6
-                                        // #define COLOR_WHITE	7
-    int colorToInt(const string &colorValue);
-public:
-    mTheme();
-    int getColorPair(const string &element,int colorIndex);
-
-};
 
 mTheme::mTheme(){
     if(searchActiveTheme()){
@@ -149,7 +129,7 @@ bool mTheme::searchActiveTheme(){
     return false;
 }
 
-int mTheme::getColorPair(const string &element,int colorIndex=0){
+int mTheme::getColorPair(const string &element,int colorIndex){
     if(element=="window_title") return colorPair[0][colorIndex];
     if(element=="enabled") return colorPair[1][colorIndex];
     if(element=="disabled") return colorPair[2][colorIndex];

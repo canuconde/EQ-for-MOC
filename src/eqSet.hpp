@@ -13,10 +13,8 @@
 //
 // You should have received a copy of the GNU General Public License along with eq4moc (EQ 4 MOC).
 // If not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <filesystem>
-#include <fstream>
 
+#pragma once
 using namespace std;
 using namespace std::filesystem;
 
@@ -51,39 +49,3 @@ public:
     bool save();
     bool save_as(const string &new_filename);
 };
-
-eqSet::eqSet(const string &file_path){
-    moc_dir=path(file_path).remove_filename();
-    name=path(file_path).filename();
-}
-
-bool eqSet::save(){
-    string tmp_filename;
-    tmp_filename = moc_dir;
-    tmp_filename.append(name);
-    ofstream eqset_file(tmp_filename);
-    if(!eqset_file.is_open()) return false;
-    eqset_file << "#This file was generated automatically by some eq app for moc." <<endl;
-    eqset_file << "EQSET" <<endl;
-    eqset_file << band[0].bandfreq << "\t" << setprecision (2) << fixed << band[0].bandwidth << endl;
-    for(int i=1; i<11; i++){
-        eqset_file << band[i].bandfreq <<"\t" << setprecision (2) << fixed << band[i].bandwidth<<"\t"<< setprecision (2) << fixed <<band[i].bandamp<<endl;
-    }
-    eqset_file.close();
-    unsaved=false;
-    return true;
-}
-
-bool eqSet::save_as(const string  &new_filename){
-    name=new_filename;
-    if(!save()) return false;
-    return true;
-}
-bool eqSet::setbandvalue(const int &bandnumber, const float &value){
-    band[bandnumber].bandamp=value;
-    unsaved=true;
-    return true;
-}
-float eqSet::getbandvalue(const int &bandnumber){
-    return band[bandnumber].bandamp;
-}

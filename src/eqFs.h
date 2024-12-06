@@ -17,7 +17,7 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
-#include "eqSet.h"
+#include "eqSet.hpp"
 
 using namespace std;
 using namespace std::filesystem;

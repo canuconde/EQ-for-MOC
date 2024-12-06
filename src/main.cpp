@@ -23,9 +23,9 @@
 #include <fstream>
 #include <string>
 #include "eqFs.h"
-#include "eqSet.h"
+#include "eqSet.hpp"
 #include "ncFunctions.h"
-#include "mTheme.h"
+#include "mTheme.hpp"
 
 using namespace std;
 

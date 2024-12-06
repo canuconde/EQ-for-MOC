@@ -19,7 +19,7 @@
 #include <ncurses.h>
 #include <string>
 #include <sstream>
-#include "eqSet.h"
+#include "eqSet.hpp"
 
 using namespace std;
 
