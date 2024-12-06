@@ -39,8 +39,8 @@ WINDOW *create_eqbar(int height, int width, int starty, int startx,const string 
     mvwprintw(local_win,1,1,label.data());
     wattroff(local_win,COLOR_PAIR(4) | A_BOLD );
     box(local_win, 0, 0);
+    mvwhline(local_win,2, 1, 0,3);// Linea en y=2 x=0 de tipo 0 (defecto) y longitud 3
     update_control(local_win,value);
-//  mvwhline(local_win,2, 1, 0,3); // Linea en y=2 x=0 de tipo 0 (defecto) y longitud 3
 return local_win;
 }
 
@@ -48,14 +48,16 @@ WINDOW *create_mainwin(int height, int width, int starty, int startx,eqSet &loca
     WINDOW *local_win;
     local_win = newwin(height, width, starty, startx);
     wbkgd(local_win, COLOR_PAIR(6));
+   // wattron(local_win, A_BOLD );
     box(local_win, 0, 0);
     string title = string("EQ for MOC").data();
     wmove(local_win,0,width/2-(title.size()+2)/2);
     wprintw(local_win,"|");
-    wattron(local_win, COLOR_PAIR(1) | A_BOLD );
+    wattron(local_win, COLOR_PAIR(1)  );
     wprintw(local_win,title.data());
-    wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
+    wattroff(local_win, COLOR_PAIR(1));
     wprintw(local_win,"|");
+ //   wattroff(local_win, A_BOLD);
     update_window(local_win,local_eqSet);
 return local_win;
 }
@@ -83,7 +85,7 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
     wprintw(local_win,db.data());
     wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
 
-    wmove(local_win,height-3,width*7/10);
+    wmove(local_win,height-3,width*7/10+2);
     wattron(local_win, A_BOLD );
     wprintw(local_win,"K: ");
     wattroff(local_win,  A_BOLD );
@@ -91,7 +93,7 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
     wprintw(local_win,"Change EQSET");
     wattroff(local_win, A_ITALIC);
 
-    wmove(local_win,height-2,width*7/10);
+    wmove(local_win,height-2,width*7/10+2);
 
     wattron(local_win, A_BOLD );
     wprintw(local_win,"Q: ");
@@ -114,26 +116,28 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
     // wprintw(local_win,"Refresh");
     // wattroff(local_win, A_ITALIC);
 
+    mvwvline(local_win,LINES-3, COLS*7/10, 0,2);
+
     if(local_eqSet.isactive==true){
         string button="[ACTIVE]";
         wattron(local_win, COLOR_PAIR(2) | A_BOLD );
-        mvwprintw(local_win,height-2,COLS/2-button.size(),button.data());
+        mvwprintw(local_win,height-2,width*7/10-button.size()-1,button.data());
         wattroff(local_win, COLOR_PAIR(2) | A_BOLD );
     }else{
         string button="[UNACTIVE]";
         wattron(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM );
-        mvwprintw(local_win,height-2,COLS/2-button.size(),button.data());
+        mvwprintw(local_win,height-2,COLS*7/10-button.size()-1,button.data());
         wattroff(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM );
     }
     if(local_eqSet.unsaved==true){
         string button="[UNSAVED]";
         wattron(local_win, COLOR_PAIR(2) | A_BOLD );
-        mvwprintw(local_win,height-3,COLS/2-button.size(),button.data());
+        mvwprintw(local_win,height-3,COLS*7/10-button.size()-1,button.data());
         wattroff(local_win, COLOR_PAIR(2) | A_BOLD );
     }else{
         string button="[SAVED]";
         wattron(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM);
-        mvwprintw(local_win,height-3,COLS/2-button.size(),button.data());
+        mvwprintw(local_win,height-3,COLS*7/10-button.size()-1,button.data());
         wattroff(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM);
     }
 
@@ -173,6 +177,7 @@ void update_control(WINDOW *local_win, float value){
         str="+"+to_string(percent);
     }
     if(str.size()<3) str+="%%";
+    wattroff(local_win,COLOR_PAIR(4) | A_BLINK );
     wattron(local_win,COLOR_PAIR(4) | A_BOLD);
     mvwprintw(local_win,height-2,1,str.data());
     wattroff(local_win,COLOR_PAIR(4) | A_BOLD );
@@ -188,6 +193,7 @@ void clean_control(WINDOW *local_win){
           mvwprintw(local_win,height-i-2,2," ");
           mvwprintw(local_win,height-i-2,3," ");
       }
+      mvwhline(local_win,2, 1, 0,3);
 }
 
 void destroy_win(WINDOW *local_win){
