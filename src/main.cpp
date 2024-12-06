@@ -64,8 +64,8 @@ int main(int argc, char *argv[])
 
             }
 	}
-	if (!setlocale(LC_ALL, ""))
-		cout << "Could not set locale!" << endl;
+	// if (!setlocale(LC_ALL, ""))
+	// 	cout << "Could not set locale!" << endl;
     if(user_dir==""){
         cout<<"Could not determine user's home directory!"<<endl;
         return 1;
