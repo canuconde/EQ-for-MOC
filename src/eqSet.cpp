@@ -17,6 +17,8 @@
 #include <fstream>
 #include "eqSet.hpp"
 
+#define MOC_EQSET_DIR  ".moc/eqsets"
+
 using namespace std;
 using namespace std::filesystem;
 

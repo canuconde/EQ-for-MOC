@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
                      << "          License : GNU General Public License, version 3 or later\n"
                 << endl;
 				return 0;
-			}else if(string(argv[i])=="-t"){
+			}else if(string(argv[i])=="-t" || string(argv[i])=="-T"){
 
                 if(!moc_theme.chgTheme(argv[i+1])){
                         cout << "\t Theme file not fund." <<endl;

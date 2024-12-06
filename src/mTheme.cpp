@@ -18,12 +18,13 @@
 #include <vector>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 
 #include "mTheme.hpp"
 
 #define THEMESDIR "/usr/share/moc/themes/"
 #define THEMESDIRLOCAL "/usr/local/share/moc/themes/"
-#define THEMESDIRUSER "/.moc/themes/"
+#define THEMESDIRUSER ".moc/themes/"
 #define MOCCONFIGFILE ".moc/config"
 
 using namespace std;
@@ -72,7 +73,7 @@ bool mTheme::loadActiveTheme(){
     path configDir=getenv("HOME");
     if(exists(path(THEMESDIR/Theme))) {
                 configDir=THEMESDIR;
-    }else if(exists(path(THEMESDIRUSER/Theme))) {
+    }else if(exists(path(configDir/THEMESDIRUSER/Theme))) {
                 configDir=configDir/THEMESDIRUSER;
     }else{
         return false;
