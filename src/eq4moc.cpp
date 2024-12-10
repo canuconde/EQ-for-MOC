@@ -39,10 +39,11 @@ int main(int argc, char *argv[])
     string user_dir=getenv("HOME");
     mTheme moc_theme;
 
+    string newStringFileName;
+    int curX, curY;
 
-
-    WINDOW *main_win, *control[10], *help;
-    int ch;
+    WINDOW *main_win, *control[10], *saveAsWin;
+    int ch, newFileName;
     const string band_freq[10]={"60 ","170","310","600","1 K","3 K","6 K","12K","14K","16K"};
     const string ex_band_freq[10]={"60 Hz","170 Hz","310 Hz","600 Hz","1 kHz","3 kHz","6 kHz","12 kHz","14 kHz","16 kHz"};
 
@@ -107,7 +108,7 @@ int main(int argc, char *argv[])
     main_win = create_mainwin(LINES, COLS, 0, 0,eqSets[selectedeq]);
 
     for(int i=0;i<10;i++){
-        control[i] = create_eqbar(LINES-5, 5, 2, COLS*1/10*i+COLS*1/25,
+        control[i] = create_eqbar(LINES-6, 5, 2, COLS*1/10*i+COLS*1/25,
                                   band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
      }
 
@@ -117,7 +118,7 @@ int main(int argc, char *argv[])
     wattroff(control[selected], A_BLINK | A_REVERSE  );
     clean_window(main_win);
     update_window(main_win,eqSets[selectedeq],ex_band_freq[selected],eqSets[selectedeq].getbandvalue(selected+1));
-    help = newwin(LINES/2,COLS/2,LINES/4,COLS/4);
+    saveAsWin = newwin(LINES/2,COLS/2,LINES/4,COLS/4);
 
     float test=0;
     while((ch = getch()) != KEY_F(1))
@@ -147,10 +148,53 @@ int main(int argc, char *argv[])
             case 'S':
                 eqSets[selectedeq].save();
             break;
-            case 'h':
-            case 'H':
-                    box(help,0,0);
-                    wrefresh(help);
+            case 'n':
+            case 'N':
+
+                    saveAsWin = create_saveaswin(4,COLS/2,LINES/2-2,COLS/4);
+                    newStringFileName="";
+                    wattron(saveAsWin,COLOR_PAIR(5) | A_BOLD);
+                    while((newFileName = wgetch(saveAsWin)) != 27)
+                           {
+                                switch(newFileName)
+                                {
+                                    case '\n':
+                                                eqSets.push_back(eqSets[selectedeq]);
+                                                if(!eqSets.back().save_as(newStringFileName)){
+                                                    eqSets.pop_back();
+                                                };
+                                                selectedeq=eqSets.size()-1;
+                                                delwin(saveAsWin);
+                                                werase(stdscr);
+                                                curs_set(0);
+                                                noecho();
+                                                goto refreshall;
+                                    break;
+                                    case KEY_BACKSPACE:
+                                    case '\b':
+                                                wprintw(saveAsWin," ");
+                                                getyx(saveAsWin,curY,curX);
+                                                wmove(saveAsWin,curY,curX-1);
+                                                if(newStringFileName.size()>0) newStringFileName.pop_back();
+                                                wrefresh(saveAsWin);
+                                    break;
+                                    case KEY_LEFT:
+                                    case KEY_RIGHT:
+                                    case KEY_UP:
+                                    case KEY_DOWN:
+                                    break;
+                                    default:
+                                                newStringFileName.push_back({static_cast<char>(newFileName)});
+                                    break;
+                                }
+
+                            }
+                            wattroff(saveAsWin,COLOR_PAIR(5) | A_BOLD);
+                    delwin(saveAsWin);
+                    werase(stdscr);
+                    curs_set(0);
+                    noecho();
+                    goto refreshall;
             break;
             case 'e':
             case 'E':
@@ -159,25 +203,18 @@ int main(int argc, char *argv[])
                     noecho();
                     curs_set(0);
                     keypad(stdscr, TRUE);
-                    werase(stdscr);
-                    wrefresh(stdscr);
-                    destroy_win(main_win);
-                    main_win = create_mainwin(LINES, COLS, 0, 0,eqSets[selectedeq]);
-                    for(int i=0;i<10;i++){
-                    destroy_win(control[i]);
-                        control[i] = create_eqbar(LINES-5, 5, 2, COLS*1/10*i+COLS*1/25,
-                                           band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
-                    }
+                    goto refreshall;
             break;
             case KEY_RESIZE:
                 // TODO Usar wresize() y mvwin()
+                refreshall:
                 werase(stdscr);
                 wrefresh(stdscr);
                 destroy_win(main_win);
                 main_win = create_mainwin(LINES, COLS, 0, 0,eqSets[selectedeq]);
                 for(int i=0;i<10;i++){
                     destroy_win(control[i]);
-                     control[i] = create_eqbar(LINES-5, 5, 2, COLS*1/10*i+COLS*1/25,
+                     control[i] = create_eqbar(LINES-6, 5, 2, COLS*1/10*i+COLS*1/25,
                                            band_freq[i], eqSets[selectedeq].getbandvalue(i+1) );
                 }
 

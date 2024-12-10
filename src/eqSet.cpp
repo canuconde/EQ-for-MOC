@@ -31,7 +31,8 @@ bool eqSet::save(){
     string tmp_filename;
     tmp_filename = moc_dir;
     tmp_filename.append(name);
-    ofstream eqset_file(tmp_filename);
+    path tmp_filepath = tmp_filename;
+    ofstream eqset_file(tmp_filepath);
     if(!eqset_file.is_open()) return false;
     eqset_file << "#This file was generated automatically by some eq app for moc." <<endl;
     eqset_file << "EQSET" <<endl;

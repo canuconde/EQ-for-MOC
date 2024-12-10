@@ -25,11 +25,49 @@ using namespace std;
 
 WINDOW *create_eqbar(int height, int width, int starty, int startx, const string &label, float value);
 WINDOW *create_mainwin(int height, int width, int starty, int startx, eqSet &local_eqSet);
+WINDOW *create_saveaswin(int height, int width, int starty, int startx);
 void update_control(WINDOW *local_win, float value);
 void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband="", float value=0);
 void clean_control(WINDOW *local_win);
 void clean_window(WINDOW *local_win);
 void destroy_win(WINDOW *local_win);
+
+WINDOW *create_saveaswin(int height, int width, int starty, int startx){
+    WINDOW *local_win;
+    const string saveAsTile = "> Enter new file name <";
+
+    local_win = newwin(height, width, starty, startx);
+    wbkgd(local_win, COLOR_PAIR(6));
+
+    box(local_win,0,0);
+    wattron(local_win, COLOR_PAIR(1)  );
+    mvwprintw(local_win,0,width/2-saveAsTile.size()/2,saveAsTile.data());
+    wattroff(local_win, COLOR_PAIR(1)  );
+
+    wmove(local_win,2,width/2);
+
+    wattron(local_win, A_BOLD );
+    wprintw(local_win,"ESC: ");
+    wattroff(local_win,  A_BOLD );
+    wattron(local_win, A_ITALIC );
+    wprintw(local_win,"Cancel");
+    wattroff(local_win, A_ITALIC);
+
+    wattron(local_win, A_BOLD );
+    wprintw(local_win," ENTER: ");
+    wattroff(local_win,  A_BOLD );
+    wattron(local_win, A_ITALIC );
+    wprintw(local_win,"Confirm");
+    wattroff(local_win, A_ITALIC);
+
+    wmove(local_win,1,2);
+    curs_set(1);
+    echo();
+    keypad(local_win, TRUE);
+    wrefresh(local_win);
+
+    return local_win;
+}
 
 WINDOW *create_eqbar(int height, int width, int starty, int startx,const string &label, float value){
     WINDOW *local_win;
@@ -73,19 +111,19 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
     db+=strValue.str();
     db+=" dB ] ";
 
-    wmove(local_win,height-3,width*1/10);
+    wmove(local_win,height-4,width*1/10);
     wprintw(local_win,"EQ preset: ");
     wattron(local_win, COLOR_PAIR(1) | A_BOLD );
     wprintw(local_win,string("<"+local_eqSet.name+">").data());
     wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
 
-    wmove(local_win,height-2,width*1/10);
+    wmove(local_win,height-3,width*1/10);
     wprintw(local_win,exband.data());
     wattron(local_win, COLOR_PAIR(1) | A_BOLD );
     wprintw(local_win,db.data());
     wattroff(local_win, COLOR_PAIR(1) | A_BOLD );
 
-    wmove(local_win,height-3,width*7/10+2);
+    wmove(local_win,height-4,width*7/10+2);
     wattron(local_win, A_BOLD );
     wprintw(local_win,"K: ");
     wattroff(local_win,  A_BOLD );
@@ -93,7 +131,7 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
     wprintw(local_win,"Change EQSET");
     wattroff(local_win, A_ITALIC);
 
-    wmove(local_win,height-2,width*7/10+2);
+    wmove(local_win,height-3,width*7/10+2);
 
     wattron(local_win, A_BOLD );
     wprintw(local_win,"Q: ");
@@ -107,6 +145,15 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
     wattroff(local_win,  A_BOLD );
     wattron(local_win, A_ITALIC );
     wprintw(local_win,"Save");
+    wattroff(local_win, A_ITALIC);
+
+    wmove(local_win,height-2,width*7/10+2);
+
+    wattron(local_win, A_BOLD );
+    wprintw(local_win,"N: ");
+    wattroff(local_win,  A_BOLD );
+    wattron(local_win, A_ITALIC );
+    wprintw(local_win,"Save As");
     wattroff(local_win, A_ITALIC);
 
     // wattron(local_win, A_BOLD );
@@ -149,6 +196,7 @@ void clean_window(WINDOW *local_win){
         for(int j=1;j<width-1;j++){
           mvwprintw(local_win,height-2,j," ");
           mvwprintw(local_win,height-3,j," ");
+          mvwprintw(local_win,height-4,j," ");
         }
 }
 
