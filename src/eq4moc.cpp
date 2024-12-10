@@ -15,7 +15,7 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #define PACKAGE_NAME "eq4moc - EQ for MOC"
-#define PACKAGE_VERSION "1.2"
+#define PACKAGE_VERSION "1.2.1"
 #include <ncurses.h>
 #include <string>
 #include <iostream>
@@ -151,7 +151,7 @@ int main(int argc, char *argv[])
             case 'n':
             case 'N':
 
-                    saveAsWin = create_saveaswin(4,COLS/2,LINES/2-2,COLS/4);
+                    saveAsWin = create_saveaswin(4,COLS*2/3,LINES/2-2,COLS*1/6);
                     newStringFileName="";
                     wattron(saveAsWin,COLOR_PAIR(5) | A_BOLD);
                     while((newFileName = wgetch(saveAsWin)) != 27)
