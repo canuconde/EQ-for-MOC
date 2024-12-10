@@ -156,12 +156,12 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
     wprintw(local_win,"Save As");
     wattroff(local_win, A_ITALIC);
 
-    // wattron(local_win, A_BOLD );
-    // wprintw(local_win," E: ");
-    // wattroff(local_win,  A_BOLD );
-    // wattron(local_win, A_ITALIC );
-    // wprintw(local_win,"Refresh");
-    // wattroff(local_win, A_ITALIC);
+    wattron(local_win, A_BOLD );
+    wprintw(local_win," E: ");
+    wattroff(local_win,  A_BOLD );
+    wattron(local_win, A_ITALIC );
+    wprintw(local_win,"Refresh");
+    wattroff(local_win, A_ITALIC);
 
     mvwvline(local_win,LINES-3, COLS*7/10, 0,2);
 

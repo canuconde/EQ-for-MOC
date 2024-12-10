@@ -15,7 +15,7 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #define PACKAGE_NAME "eq4moc - EQ for MOC"
-#define PACKAGE_VERSION "1.0"
+#define PACKAGE_VERSION "1.2"
 #include <ncurses.h>
 #include <string>
 #include <iostream>
@@ -198,12 +198,11 @@ int main(int argc, char *argv[])
             break;
             case 'e':
             case 'E':
+                    def_prog_mode();
+                    endwin();
                     system("echo 'eq' | mocp ; clear"); // <-- TODO: NO borrar esto!!! lo necesitamos para refrescar moc
-                    cbreak();
-                    noecho();
-                    curs_set(0);
-                    keypad(stdscr, TRUE);
-                    goto refreshall;
+                    reset_prog_mode();
+                    refresh();
             break;
             case KEY_RESIZE:
                 // TODO Usar wresize() y mvwin()
