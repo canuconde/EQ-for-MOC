@@ -1,13 +1,13 @@
 TARGET_EXEC := eq4moc
 BUILD_DIR := ./build
 SRC_DIRS := ./src
-INCLUDE_DIR  := ./src
+INCLUDE_DIR  := ./include
 MAN_DIR := ./man
 
 CXX = g++
 # CXXFLAGS = -g -std=c++17 -Wall -W -Werror -pedantic
 CXXFLAGS = -O2 -std=c++17
-INCLUDE = -Iinclude -I/usr/local/include -I/usr/include $(INCLUDE_DIR)
+INCLUDE = -Iinclude -I/usr/local/include -I/usr/include -I $(INCLUDE_DIR)
 LDFLAGS = "-lncurses"
 #LDLIBS = "-lncurses"
 
@@ -49,7 +49,7 @@ $(BUILD_DIR)/%.c.o: %.c
 # Build step for C++ source
 $(BUILD_DIR)/%.cpp.o: %.cpp
 	mkdir -p $(dir $@)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 
 install:
 	install -d $(DESTDIR)$(PREFIX)/bin/
