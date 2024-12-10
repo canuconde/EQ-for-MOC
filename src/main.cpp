@@ -22,6 +22,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <map>
 #include "eqFs.h"
 #include "eqSet.hpp"
 #include "ncFunctions.h"

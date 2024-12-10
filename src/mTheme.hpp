@@ -24,6 +24,17 @@ private:
     path Theme;
     bool loadActiveTheme();
     bool searchActiveTheme();
+    const map<string, int> tMap= {
+                            {"black", 0},
+                            {"red",1},
+                            {"green",2},
+                            {"yellow",3},
+                            {"blue",4},
+                            {"magenta",5},
+                            {"cyan",6},
+                            {"white",7},
+                            {"default",0}
+    };
                                         //   Tema por defecto
     int colorPair[6][2]={   7,  4,      //  --> NCURSES.h <--
                             7,  4,      // #define COLOR_BLACK	0

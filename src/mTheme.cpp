@@ -19,6 +19,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <map>
 
 #include "mTheme.hpp"
 
@@ -40,32 +41,10 @@ bool mTheme::chgTheme(const string &_theme){
     Theme=_theme;
     if(!loadActiveTheme()) return false;
      return true;
-
 }
 
 int mTheme::colorToInt(const string &colorValue){
-    if(colorValue=="black"){
-        return 0;
-    }else  if(colorValue=="black"){
-        return 0;
-    }else  if(colorValue=="red"){
-        return 1;
-    }else  if(colorValue=="green"){
-        return 2;
-    }else  if(colorValue=="yellow"){
-        return 3;
-    }else  if(colorValue=="blue"){
-        return 4;
-    }else  if(colorValue=="magenta"){
-        return 5;
-    }else  if(colorValue=="cyan"){
-        return 6;
-    }else   if(colorValue=="white"){
-        return 7;
-    }else  if(colorValue=="default"){
-        return 0;
-    }
-    return -1;
+    return tMap.at(colorValue);
 }
 
 bool mTheme::loadActiveTheme(){
