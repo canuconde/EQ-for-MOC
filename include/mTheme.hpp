@@ -54,7 +54,6 @@ private:
                                 };      // #define COLOR_MAGENTA	5
                                         // #define COLOR_CYAN	6
                                         // #define COLOR_WHITE	7
-    int colorToInt(const string &colorValue);
 public:
     mTheme();
     bool chgTheme(const string &_theme);

@@ -14,13 +14,9 @@
 // You should have received a copy of the GNU General Public License along with eq4moc (EQ 4 MOC).
 // If not, see <https://www.gnu.org/licenses/>.
 
-#include <string>
-#include <vector>
 #include <filesystem>
 #include <fstream>
-#include <iostream>
 #include <map>
-
 #include "mTheme.hpp"
 
 #define THEMESDIR "/usr/share/moc/themes/"
@@ -41,10 +37,6 @@ bool mTheme::chgTheme(const string &_theme){
     Theme=_theme;
     if(!loadActiveTheme()) return false;
      return true;
-}
-
-int mTheme::colorToInt(const string &colorValue){
-    return tMap.at(colorValue);
 }
 
 bool mTheme::loadActiveTheme(){
@@ -69,8 +61,8 @@ bool mTheme::loadActiveTheme(){
         configFile >> eq >> value1 >> value2 ;
         getline(configFile,eq,'\n');
         if(cMap.count(key)){
-            colorPair[cMap.at(key)][0]=colorToInt(value1);
-            colorPair[cMap.at(key)][1]=colorToInt(value2);
+            colorPair[cMap.at(key)][0]=tMap.at(value1);
+            colorPair[cMap.at(key)][1]=tMap.at(value2);
         }
     }
     configFile.close();
@@ -102,11 +94,8 @@ bool mTheme::searchActiveTheme(){
 }
 
 int mTheme::getColorPair(const string &element,int colorIndex){
-    if(element=="window_title") return colorPair[0][colorIndex];
-    if(element=="enabled") return colorPair[1][colorIndex];
-    if(element=="disabled") return colorPair[2][colorIndex];
-    if(element=="info") return colorPair[3][colorIndex];
-    if(element=="title") return colorPair[4][colorIndex];
-    if(element=="frame") return colorPair[5][colorIndex];
+    if(cMap.count(element)){
+         return colorPair[cMap.at(element)][colorIndex];
+    }
     return -1;
 }
