@@ -35,6 +35,15 @@ private:
                             {"white",7},
                             {"default",0}
     };
+
+     const map<string, int> cMap= {
+                            {"window_title", 0},
+                            {"enabled",1},
+                            {"disabled",2},
+                            {"info",3},
+                            {"title",4},
+                            {"frame",5}
+    };
                                         //   Tema por defecto
     int colorPair[6][2]={   7,  4,      //  --> NCURSES.h <--
                             7,  4,      // #define COLOR_BLACK	0

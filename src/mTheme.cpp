@@ -68,24 +68,9 @@ bool mTheme::loadActiveTheme(){
         }
         configFile >> eq >> value1 >> value2 ;
         getline(configFile,eq,'\n');
-        if(key=="window_title"){
-                colorPair[0][0]=colorToInt(value1);
-                colorPair[0][1]=colorToInt(value2);
-        }else if(key=="enabled"){
-                colorPair[1][0]=colorToInt(value1);
-                colorPair[1][1]=colorToInt(value2);
-        }else if(key=="disabled"){
-                colorPair[2][0]=colorToInt(value1);
-                colorPair[2][1]=colorToInt(value2);
-        }else if(key=="info"){
-                colorPair[3][0]=colorToInt(value1);
-                colorPair[3][1]=colorToInt(value2);
-        }else if(key=="title"){
-                colorPair[4][0]=colorToInt(value1);
-                colorPair[4][1]=colorToInt(value2);
-        }else if(key=="frame"){
-                colorPair[5][0]=colorToInt(value1);
-                colorPair[5][1]=colorToInt(value2);
+        if(cMap.count(key)){
+            colorPair[cMap.at(key)][0]=colorToInt(value1);
+            colorPair[cMap.at(key)][1]=colorToInt(value2);
         }
     }
     configFile.close();
