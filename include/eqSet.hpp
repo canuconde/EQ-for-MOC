@@ -15,6 +15,8 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
+#include <filesystem>
+
 using namespace std;
 using namespace std::filesystem;
 

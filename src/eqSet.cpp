@@ -34,7 +34,7 @@ bool eqSet::save(){
     path tmp_filepath = tmp_filename;
     ofstream eqset_file(tmp_filepath);
     if(!eqset_file.is_open()) return false;
-    eqset_file << "#This file was generated automatically by some eq app for moc." <<endl;
+    eqset_file << "#This file was generated automatically by EQ4MOC." <<endl;
     eqset_file << "EQSET" <<endl;
     eqset_file << band[0].bandfreq << "\t" << setprecision (2) << fixed << band[0].bandwidth << endl;
     for(int i=1; i<11; i++){

@@ -14,23 +14,13 @@
 // You should have received a copy of the GNU General Public License along with eq4moc (EQ 4 MOC).
 // If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
-
 #include <ncurses.h>
 #include <string>
 #include <sstream>
 #include "eqSet.hpp"
+#include "ncFunctions.h"
 
 using namespace std;
-
-WINDOW *create_eqbar(int height, int width, int starty, int startx, const string &label, float value);
-WINDOW *create_mainwin(int height, int width, int starty, int startx, eqSet &local_eqSet);
-WINDOW *create_saveaswin(int height, int width, int starty, int startx);
-void update_control(WINDOW *local_win, float value);
-void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband="", float value=0);
-void clean_control(WINDOW *local_win);
-void clean_window(WINDOW *local_win);
-void destroy_win(WINDOW *local_win);
 
 WINDOW *create_saveaswin(int height, int width, int starty, int startx){
     WINDOW *local_win;
