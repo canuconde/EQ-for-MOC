@@ -153,7 +153,7 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
     wprintw(local_win,"Refresh");
     wattroff(local_win, A_ITALIC);
 
-    mvwvline(local_win,LINES-3, COLS*7/10, 0,2);
+    mvwvline(local_win,LINES-4, COLS*7/10, 0,3);
 
     if(local_eqSet.isactive==true){
         string button="[ON]";

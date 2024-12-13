@@ -1,6 +1,7 @@
 # EQ-for-MOC
 
-EQ for Moc is a terminal application to visualize and edit EQSET equalization files used by MoC (Music on Console).
+EQ for Moc is a terminal equalizer for moc (Music on Console). With eq4moc you can create and edit EQSET files.
+
 
 ![Screenshot_20241205_014534](https://github.com/user-attachments/assets/7da86642-fa2e-44b9-9d71-04a2e831d9d8)
 
@@ -28,7 +29,7 @@ if not :
 
   You will need normal build tooling installed such as make and g++.
 
-Also you will need the ncurses development libraries.
+You will also need the ncurses development libraries.
 
      apt install libncurses-dev
 
