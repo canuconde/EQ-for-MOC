@@ -156,25 +156,36 @@ void update_window(WINDOW *local_win, eqSet &local_eqSet, string exband,float va
     mvwvline(local_win,LINES-3, COLS*7/10, 0,2);
 
     if(local_eqSet.isactive==true){
+        string button="[ON]";
+        wattron(local_win, COLOR_PAIR(2) | A_BOLD );
+        mvwprintw(local_win,height-4,width*7/10-button.size()-1,button.data());
+        wattroff(local_win, COLOR_PAIR(2) | A_BOLD );
+    }else{
+        string button="[OFF]";
+        wattron(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM );
+        mvwprintw(local_win,height-4,COLS*7/10-button.size()-1,button.data());
+        wattroff(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM );
+    }
+    if(local_eqSet.isactive==true){
         string button="[ACTIVE]";
         wattron(local_win, COLOR_PAIR(2) | A_BOLD );
-        mvwprintw(local_win,height-2,width*7/10-button.size()-1,button.data());
+        mvwprintw(local_win,height-3,width*7/10-button.size()-1,button.data());
         wattroff(local_win, COLOR_PAIR(2) | A_BOLD );
     }else{
         string button="[UNACTIVE]";
         wattron(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM );
-        mvwprintw(local_win,height-2,COLS*7/10-button.size()-1,button.data());
+        mvwprintw(local_win,height-3,COLS*7/10-button.size()-1,button.data());
         wattroff(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM );
     }
     if(local_eqSet.unsaved==true){
         string button="[UNSAVED]";
         wattron(local_win, COLOR_PAIR(2) | A_BOLD );
-        mvwprintw(local_win,height-3,COLS*7/10-button.size()-1,button.data());
+        mvwprintw(local_win,height-2,COLS*7/10-button.size()-1,button.data());
         wattroff(local_win, COLOR_PAIR(2) | A_BOLD );
     }else{
         string button="[SAVED]";
         wattron(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM);
-        mvwprintw(local_win,height-3,COLS*7/10-button.size()-1,button.data());
+        mvwprintw(local_win,height-2,COLS*7/10-button.size()-1,button.data());
         wattroff(local_win, COLOR_PAIR(3) | A_BOLD | A_DIM);
     }
 
