@@ -15,7 +15,7 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 #define PACKAGE_NAME "eq4moc - EQ for MOC"
-#define PACKAGE_VERSION "1.2.1"
+#define PACKAGE_VERSION "1.1.1"
 #include <ncurses.h>
 #include <string>
 #include <iostream>
