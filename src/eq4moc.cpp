@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 				cout << "\n"
                      << "          This is : " << PACKAGE_NAME << "\n"
                      << "          Version : " << PACKAGE_VERSION << "\n"
-                     << "        Copyright : (C) 2024 Sebastián Bergara\n"
+                     << "        Copyright : (C) 2024-2025 Sebastián Bergara \n"
                      << "          License : GNU General Public License, version 3 or later\n"
                 << endl;
 				return 0;
